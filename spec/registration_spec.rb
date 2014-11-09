@@ -1,13 +1,11 @@
 require 'spec_helper'
 
 describe "Register and create a new user account" do
-  
-  HOME_CONTENT = "TaskMe is todo list/task organization application based on the methods from the book Getting Things Done by David Allen."
-  
+    
   before(:all) do
     prefix = 'janmilosh'
     suffix = '@gmail.com'
-    EMAIL = RandomEmailFactory.create_email(prefix, suffix)
+    @email = RandomEmailFactory.create_email(prefix, suffix)
 
     @session = Capybara::Session.new(:selenium) 
     @session.visit("http://taskme.us")
@@ -16,7 +14,7 @@ describe "Register and create a new user account" do
   let(:user) do
     {
       password: "testtest",
-      email: EMAIL
+      email: @email
     }
   end
 
@@ -40,7 +38,7 @@ describe "Register and create a new user account" do
   it "Should navigate to the 'Home' page as a logged-in user after clicking 'Register'" do
     @session.click_button 'Register'
     expect(@session).to have_content HOME_CONTENT
-    expect(@session).to have_content EMAIL
+    expect(@session).to have_content user[:email]
     expect(@session).to have_content 'Logout'
   end
 

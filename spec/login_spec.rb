@@ -2,17 +2,16 @@ require 'spec_helper'
 
 describe "Registered user logs in and successfully creates a task" do
   
-  HOME_CONTENT = "TaskMe is todo list/task organization application based on the methods from the book Getting Things Done by David Allen."
-  TASK = "Create some awesome tests"
+  
 
   before(:all) do
-    @session = Capybara::Session.new(:selenium) 
+    @session = Capybara::Session.new(:selenium)
     @session.visit("http://taskme.us")
     @session.click_link("Log In")
   end
 
   after(:all) do
-    @session.find("td.task-title", :text=> TASK).click
+    @session.find("td.task-title", :text=> @task).click
     @session.find("a", :text=> "Edit Task").click
     @session.find("a", :text=> "Delete Task").click
   end
@@ -20,7 +19,8 @@ describe "Registered user logs in and successfully creates a task" do
   let(:user) do
     {
       password: "testtest",
-      email: "janmilosh+527329@gmail.com"
+      email: "janmilosh+527329@gmail.com",
+      task: "Create some awesome tests"
     }
   end
 
@@ -42,9 +42,9 @@ describe "Registered user logs in and successfully creates a task" do
   end
 
   it "Should create a task" do
-    @session.fill_in "New task title", :with => TASK
+    @session.fill_in "New task title", :with => user[:task]
     @session.click_button 'add'
-    expect(@session).to have_content TASK
+    expect(@session).to have_content user[:task]
   end
 
   it "Should put the task in the inbox" do
