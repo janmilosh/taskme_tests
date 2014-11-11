@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe "Register and create a new user account" do
-    
   before(:all) do
     prefix = 'janmilosh'
     suffix = '@gmail.com'
@@ -55,5 +54,4 @@ describe "Register and create a new user account" do
     @session.assert_selector('td', :text => 'Soon', :visible => true)
     @session.assert_selector('td', :text => 'Inbox', :visible => true)
   end
-
 end

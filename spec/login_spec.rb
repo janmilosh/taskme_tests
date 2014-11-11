@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe "Registered user logs in and successfully creates a task" do
-  
-  
-
   before(:all) do
     @session = Capybara::Session.new(:selenium)
     @session.visit("http://taskme.us")
