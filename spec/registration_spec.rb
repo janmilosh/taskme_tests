@@ -1,10 +1,12 @@
 require 'spec_helper'
+require 'securerandom'
 
 describe "Register and create a new user account" do
   before(:all) do
     prefix = 'janmilosh'
     suffix = '@gmail.com'
-    @email = RandomEmailFactory.create_email(prefix, suffix)
+    random_string = SecureRandom.hex(10)
+    @email = prefix + '+' + random_string + suffix
 
     @session = Capybara::Session.new(:selenium) 
     @session.visit("http://taskme.us")
